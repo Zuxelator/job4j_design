@@ -10,11 +10,7 @@ public class SimpleLinkedList<E> implements List<E> {
     private int size;
     private Node<E> first;
     private Node<E> last;
-
-    private Node<E> cursor;
-
     private int modCount;
-
 
     private static class Node<E> {
         private E element;
@@ -39,7 +35,6 @@ public class SimpleLinkedList<E> implements List<E> {
             oldNode.next = newNode;
         }
         size++;
-        cursor = first;
         modCount++;
     }
 
@@ -56,8 +51,8 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public Iterator<E> iterator() {
         int expectedModCount = modCount;
-        cursor = first;
         return new Iterator<E>() {
+            Node<E> cursor = first;
             @Override
             public boolean hasNext() {
                 if (cursor == null) {
