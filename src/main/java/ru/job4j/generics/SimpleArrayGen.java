@@ -4,14 +4,14 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SimpleArray<T> implements Iterable<T> {
+public class SimpleArrayGen<T> implements Iterable<T> {
 
     private Object[] array;
 
     private int capacity = 0;
     private int cursor = 0;
 
-    public SimpleArray(int size) {
+    public SimpleArrayGen(int size) {
         this.array =  new Object[size];
     }
 
