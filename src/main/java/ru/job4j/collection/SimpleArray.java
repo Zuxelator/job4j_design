@@ -54,12 +54,27 @@ public class SimpleArray<T> implements Iterable<T> {
         modCount++;
     }
 
+    public int size() {
+        return size;
+    }
+
+    public int indexOf(T element) {
+        int index = -1;
+        for (int i = 0; i < size; i++) {
+            if (element.equals(container[i])) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
     private void grow() {
         capacity = (int) (container.length * 1.5);
         Object[] newContainer = new Object[capacity];
         System.arraycopy(container, 0, newContainer, 0, container.length);
         container = newContainer;
     }
+
 
     @Override
     public Iterator<T> iterator() {
