@@ -30,17 +30,7 @@ public class SimpleSet<T> implements Set<T> {
 
     @Override
     public boolean contains(T value) {
-        for (int i = 0; i < set.size(); i++) {
-            Optional<T> optional = Optional.ofNullable(set.get(i));
-            if (optional.isPresent()) {
-                if (optional.get().equals(value)) {
-                    return true;
-                }
-            } else if (value == null) {
-                return true;
-            }
-        }
-        return false;
+        return set.indexOf(value) != -1;
     }
 
     @Override

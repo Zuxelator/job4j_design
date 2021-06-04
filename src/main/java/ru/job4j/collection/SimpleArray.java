@@ -11,7 +11,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     private int size;
     private int capacity;
-    private int cursor;
+
     private int modCount;
 
     public SimpleArray() {
@@ -61,8 +61,9 @@ public class SimpleArray<T> implements Iterable<T> {
     public int indexOf(T element) {
         int index = -1;
         for (int i = 0; i < size; i++) {
-            if (element.equals(container[i])) {
+            if (Objects.equals(element, container[i])) {
                 index = i;
+                break;
             }
         }
         return index;
@@ -79,7 +80,9 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         int expectedModCount = modCount;
+
         return new Iterator<T>() {
+            int cursor;
             @Override
             public boolean hasNext() {
                 return cursor < size;
