@@ -30,12 +30,8 @@ public class SimpleTree<E> implements Tree<E> {
     }
 
     public boolean isBinary() {
-        boolean rsl = true;
         Optional<Node<E>> node = findByPredicate(x -> x.children.size() > 2);
-        if (node.isPresent()) {
-            rsl = false;
-        }
-        return rsl;
+        return node.isEmpty();
     }
 
     private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
