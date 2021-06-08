@@ -69,7 +69,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
         boolean rsl = table[index] != null;
         if (rsl && table[index].key.equals(key)) {
             table[index] = null;
+            count--;
         }
+        modCount++;
         return rsl;
     }
 
