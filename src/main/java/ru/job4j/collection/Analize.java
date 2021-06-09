@@ -5,22 +5,22 @@ import java.util.*;
 public class Analize {
 
     public Info diff(List<User> previous, List<User> current) {
-        List<User> newCurrent = new ArrayList<>(current);
-        int added;
-        int changed = 0;
-        int deleted;
-        newCurrent.removeAll(previous); // добавленные + измененные
-        for (User cur : newCurrent) {
-            for (User prev : previous) {
-                if (cur.id == prev.id) {
-                    changed++;
-                }
+        ArrayList<User> deleted = new ArrayList<>(previous);
+        deleted.removeAll(current);
+        int delete = deleted.size();
+        ArrayList<User> added = new ArrayList<>(current);
+        added.removeAll(previous);
+        int add = added.size();
+        ArrayList<User> changedAndUnchanged = new ArrayList<>(current);
+        changedAndUnchanged.retainAll(previous);
+        Set<User> set = new HashSet<>(changedAndUnchanged);
+        int change = 0;
+        for (User user : previous) {
+            if (!set.add(user)) {
+                change++;
             }
         }
-        added = newCurrent.size() - changed;
-        previous.removeAll(current);
-        deleted = previous.size() - changed;
-        return new Info(added, changed, deleted);
+        return new Info(add, change, delete);
     }
 
     public static class User {
@@ -49,12 +49,12 @@ public class Analize {
                 return false;
             }
             User user = (User) o;
-            return id == user.id && name.equals(user.name);
+            return id == user.id;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(id, name);
+            return Objects.hash(id);
         }
     }
 
