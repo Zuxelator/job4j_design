@@ -70,8 +70,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (rsl && table[index].key.equals(key)) {
             table[index] = null;
             count--;
+            modCount++;
         }
-        modCount++;
         return rsl;
     }
 
