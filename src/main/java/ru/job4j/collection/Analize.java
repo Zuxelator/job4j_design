@@ -4,25 +4,6 @@ import java.util.*;
 
 public class Analize {
 
-    public static void main(String[] args) {
-        Analize analize = new Analize();
-        ArrayList<Analize.User> previous = new ArrayList<>(Arrays.asList(
-                new Analize.User(1, "Вася"),
-                new Analize.User(2, "Петя1"),
-                new Analize.User(3, "Даша"),
-                new Analize.User(4, "Наташа")
-        ));
-
-        ArrayList<Analize.User> current = new ArrayList<>(
-                Arrays.asList(
-                        new Analize.User(1, "Вася"),
-                        new Analize.User(2, "Петя"),
-                        new Analize.User(7, "Игорь")
-                )
-        );
-        analize.diff(previous, current);
-    }
-
     public Info diff(List<User> previous, List<User> current) {
         HashMap<Integer, User> map = new HashMap<>();
         for (User user : previous) {
