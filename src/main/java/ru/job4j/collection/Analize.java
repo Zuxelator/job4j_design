@@ -4,23 +4,47 @@ import java.util.*;
 
 public class Analize {
 
+    public static void main(String[] args) {
+        Analize analize = new Analize();
+        ArrayList<Analize.User> previous = new ArrayList<>(Arrays.asList(
+                new Analize.User(1, "Вася"),
+                new Analize.User(2, "Петя1"),
+                new Analize.User(3, "Даша"),
+                new Analize.User(4, "Наташа")
+        ));
+
+        ArrayList<Analize.User> current = new ArrayList<>(
+                Arrays.asList(
+                        new Analize.User(1, "Вася"),
+                        new Analize.User(2, "Петя"),
+                        new Analize.User(7, "Игорь")
+                )
+        );
+        analize.diff(previous, current);
+    }
+
     public Info diff(List<User> previous, List<User> current) {
-        ArrayList<User> deleted = new ArrayList<>(previous);
-        deleted.removeAll(current);
-        int delete = deleted.size();
-        ArrayList<User> added = new ArrayList<>(current);
-        added.removeAll(previous);
-        int add = added.size();
-        ArrayList<User> changedAndUnchanged = new ArrayList<>(current);
-        changedAndUnchanged.retainAll(previous);
-        Set<User> set = new HashSet<>(changedAndUnchanged);
-        int change = 0;
+        HashMap<Integer, User> map = new HashMap<>();
         for (User user : previous) {
-            if (!set.add(user)) {
-                change++;
+            map.put(user.id, user);
+        }
+        int change = 0;
+        int unchanged = 0;
+        for (User user : current) {
+            if (map.keySet().contains(user.id)) {
+                if (!map.get(user.id).name.equals(user.name)) {
+                    change++;
+                } else {
+                    unchanged++;
+                }
             }
         }
-        return new Info(add, change, delete);
+        for (User user : current) {
+            previous.remove(user);
+        }
+        int deleted = previous.size() - change;
+        int add = current.size() - unchanged - change;
+        return new Info(add, change, deleted);
     }
 
     public static class User {
@@ -49,12 +73,12 @@ public class Analize {
                 return false;
             }
             User user = (User) o;
-            return id == user.id;
+            return id == user.id && name.equals(user.name);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(id);
+            return Objects.hash(id, name);
         }
     }
 
