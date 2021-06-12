@@ -10,22 +10,19 @@ public class Analize {
             map.put(user.id, user);
         }
         int change = 0;
-        int unchanged = 0;
+        int deleted = 0;
+        int added = 0;
         for (User user : current) {
             if (map.keySet().contains(user.id)) {
                 if (!map.get(user.id).name.equals(user.name)) {
                     change++;
-                } else {
-                    unchanged++;
                 }
+            } else {
+                added++;
             }
         }
-        for (User user : current) {
-            previous.remove(user);
-        }
-        int deleted = previous.size() - change;
-        int add = current.size() - unchanged - change;
-        return new Info(add, change, deleted);
+        deleted = previous.size() - current.size() + added;
+        return new Info(added, change, deleted);
     }
 
     public static class User {

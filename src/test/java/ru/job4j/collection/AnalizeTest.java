@@ -22,6 +22,8 @@ public class AnalizeTest {
                 )
         );
         Assert.assertThat(analize.diff(previous, current).added, is(2));
+        Assert.assertThat(analize.diff(previous, current).deleted, is(0));
+        Assert.assertThat(analize.diff(previous, current).changed, is(0));
     }
 
     @Test
