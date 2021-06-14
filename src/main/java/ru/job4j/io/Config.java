@@ -20,6 +20,8 @@ public class Config {
             read.lines().filter(x -> !x.startsWith("#") && x.trim().length() != 0)
                     .map(x -> x.split("="))
                     .forEach(x -> values.put(x[0], x[1]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException();
         } catch (Exception e) {
             e.printStackTrace();
         }

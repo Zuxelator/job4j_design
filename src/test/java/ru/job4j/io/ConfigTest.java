@@ -33,6 +33,12 @@ public class ConfigTest {
         config.load();
         assertThat(config.value("hibernate.connection.driver_class"), is("org.postgresql.Driver"));
         assertThat(config.value("# PostgreSQL"), is(Matchers.nullValue()));
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void whenError() {
+        String path = "./data/error.properties";
+        Config config = new Config(path);
+        config.load();
     }
 }
