@@ -9,7 +9,7 @@ public class MultipleTable {
                 for (int j = 1; j <= 10; j++) {
                     fileOutputStream.write((i * j + " ").getBytes());
                 }
-                fileOutputStream.write("\n".getBytes());
+                fileOutputStream.write(System.lineSeparator().getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();
