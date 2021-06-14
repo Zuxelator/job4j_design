@@ -13,7 +13,7 @@ public class Analize {
         int deleted = 0;
         int added = 0;
         for (User user : current) {
-            if (map.keySet().contains(user.id)) {
+            if (map.containsKey(user.id)) {
                 if (!map.get(user.id).name.equals(user.name)) {
                     change++;
                 }
