@@ -14,6 +14,7 @@ public class Dir {
         for (File subfile : file.listFiles()) {
             if (subfile.isFile()) {
                 System.out.println(subfile.getName() + ":" + subfile.length());
+                System.out.println();
             }
         }
     }
