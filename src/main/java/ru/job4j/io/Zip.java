@@ -34,7 +34,7 @@ public class Zip {
         }
     }
 
-    public static void main(String[] args) {
+    public static List<Path> search(String[] args) {
         ArgsName arg = ArgsName.of(args);
         String root = arg.get("d");
         SearchFiles sf = new SearchFiles(x -> !x.toString().endsWith(arg.get("e")));
@@ -43,7 +43,11 @@ public class Zip {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<Path> list = sf.getPaths();
-        new Zip().packFiles(list, new File(arg.get("o")));
+        return sf.getPaths();
+    }
+
+    public static void main(String[] args) {
+        ArgsName arg = ArgsName.of(args);
+        new Zip().packFiles(search(args), new File(arg.get("o")));
     }
 }
