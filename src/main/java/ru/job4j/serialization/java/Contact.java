@@ -32,9 +32,11 @@ public class Contact implements Serializable {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         final Contact contact = new Contact(2131, "1212211");
         File tmp = Files.createTempFile(null, null).toFile();
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(tmp));
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(tmp))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(tmp))) {
             oos.writeObject(contact);
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(tmp))) {
             Contact contact1 = (Contact) ois.readObject();
             System.out.println(contact1);
         }
