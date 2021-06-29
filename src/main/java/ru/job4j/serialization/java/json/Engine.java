@@ -4,9 +4,9 @@ public class Engine {
     private int power;
     private String volume;
 
-    public Engine(int power, String type) {
+    public Engine(int power, String volume) {
         this.power = power;
-        this.volume = type;
+        this.volume = volume;
     }
 
     public int getPower() {

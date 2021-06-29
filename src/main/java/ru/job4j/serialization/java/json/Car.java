@@ -2,6 +2,8 @@ package ru.job4j.serialization.java.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -64,6 +66,19 @@ public class Car {
         System.out.println(str);
         Car fromJSONtoCar = gson.fromJson(str, Car.class);
         System.out.println(fromJSONtoCar);
+
+        JSONObject jsonObject = new JSONObject();
+        JSONObject engine = new JSONObject();
+        engine.put("power", 475);
+        engine.put("volume", "3996");
+        JSONArray jsonArray = new JSONArray(Arrays.asList(2, 3));
+        
+        jsonObject.put("isRacing", car.isRacing());
+        jsonObject.put("seats", car.getSeats());
+        jsonObject.put("model", car.getModel());
+        jsonObject.put("engine", engine);
+        jsonObject.put("nums", jsonArray);
+        System.out.println(jsonObject.toString());
 
     }
 }
