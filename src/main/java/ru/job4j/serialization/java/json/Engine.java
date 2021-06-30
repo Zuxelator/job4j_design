@@ -13,7 +13,7 @@ public class Engine {
         return power;
     }
 
-    public String getType() {
+    public String getVolume() {
         return volume;
     }
 
@@ -22,7 +22,7 @@ public class Engine {
         return "Engine{"
                 + "power="
                 + power
-                + ", type='"
+                + ", volume='"
                 + volume
                 + '\''
                 + '}';

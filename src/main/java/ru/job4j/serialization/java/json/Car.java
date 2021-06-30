@@ -22,7 +22,7 @@ public class Car {
         this.nums = nums;
     }
 
-    public boolean isRacing() {
+    public boolean getIsRacing() {
         return isRacing;
     }
 
@@ -73,12 +73,13 @@ public class Car {
         engine.put("volume", "3996");
         JSONArray jsonArray = new JSONArray(Arrays.asList(2, 3));
         
-        jsonObject.put("isRacing", car.isRacing());
+        jsonObject.put("isRacing", car.getIsRacing());
         jsonObject.put("seats", car.getSeats());
         jsonObject.put("model", car.getModel());
         jsonObject.put("engine", engine);
         jsonObject.put("nums", jsonArray);
-        System.out.println(jsonObject.toString());
 
+        System.out.println(jsonObject.toString());
+        System.out.println(new JSONObject(car).toString());
     }
 }
