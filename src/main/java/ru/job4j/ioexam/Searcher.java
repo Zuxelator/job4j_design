@@ -2,10 +2,18 @@ package ru.job4j.ioexam;
 
 import java.io.*;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 
 public class Searcher {
-    public static void main(String[] args) throws IOException {
+
+    public static void write(Args arg) {
+        try (PrintWriter pw = new PrintWriter(new BufferedOutputStream(new FileOutputStream(arg.get("o"))))) {
+            MyFileVisitor.getList().stream().forEach(pw::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
         Args arg = Args.of(args);
 
         if (args.length != 4) {
@@ -24,13 +32,10 @@ public class Searcher {
 
         Path start = Path.of(arg.get("d"));
         try {
-            Files.walkFileTree(start, new MyFileVisitor(arg.get("n"), arg.get("t")));
+            Files.walkFileTree(start, new MyFileVisitor(arg));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        try (PrintWriter pw = new PrintWriter(new BufferedOutputStream(new FileOutputStream(arg.get("o"))))) {
-            MyFileVisitor.getList().stream().forEach(pw::println);
-        }
+        Searcher.write(arg);
     }
 }
