@@ -10,15 +10,15 @@ import java.util.function.Predicate;
 
 public class MyFileVisitor extends SimpleFileVisitor<Path> {
     private static List<Path> array = new ArrayList<>();
-    private Args args;
+    private Predicate<Path> predicate;
 
-    public MyFileVisitor(Args args) {
-        this.args = args;
+    public MyFileVisitor(Predicate<Path> predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-        if (getPredicate(args).test(file.toString())) {
+        if (predicate.test(file)) {
             array.add(file);
         }
         return FileVisitResult.CONTINUE;
@@ -26,15 +26,5 @@ public class MyFileVisitor extends SimpleFileVisitor<Path> {
 
     public static List<Path> getList() {
         return array;
-    }
-
-    public static Predicate<String> getPredicate(Args args) {
-        Predicate<String> rsl = null;
-        if (args.get("t").equals("mask")) {
-            rsl = x -> x.endsWith(args.get("n").substring(1));
-        } else if (args.get("t").equals("name")) {
-            rsl = x -> x.contains(args.get("n"));
-        }
-        return rsl;
     }
 }
