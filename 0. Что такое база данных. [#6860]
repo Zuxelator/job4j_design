@@ -1,0 +1,4 @@
+insert into books (name, author, year) values ('Java. Руководство для начинающих', 'Герберт Шилдт', '1999-01-08');
+update books set year = '2019-10-05';
+delete from books;
+select * from books;
