@@ -17,8 +17,8 @@ public class TableEditor implements AutoCloseable {
     }
 
     private void initConnection() {
-        try {
-            properties.load(new FileInputStream("data\\app.properties"));
+        try (FileInputStream fis = new FileInputStream("data\\app.properties")) {
+            properties.load(fis);
             connection = DriverManager.getConnection(properties.getProperty("url"),
                     properties.getProperty("login"), properties.getProperty("password"));
         } catch (IOException | SQLException e) {
@@ -30,8 +30,7 @@ public class TableEditor implements AutoCloseable {
             executor(String.format(
                     "create table if not exists %s(%s, %s);",
                     tableName,
-                    "id serial primary key",
-                    "name text"
+                    "id serial primary key"
             ));
     }
 
